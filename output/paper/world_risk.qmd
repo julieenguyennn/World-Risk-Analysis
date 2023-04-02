@@ -1,0 +1,71 @@
+---
+title: "An analysis of the world risk in 2019"
+author: "Julie Nguyen"
+date: "`r Sys.time()`"
+date-format: "D MMMM YYYY"
+format:
+  pdf:
+    documentclass: article
+    papersize: a4
+    geometry: margin = 1in
+    mainfont: "Garamond"
+    sansfont: "Garamond"
+thanks: 'Code and data are available at:'
+abstract: " Findings show that [...]"
+number-sections: true
+bibliography: reference.bib
+execute: 
+  message: false
+  warning: false
+  echo: false
+---
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+library(opendatatoronto)
+library(dplyr)
+library(janitor)
+library(tidyverse)
+library(knitr)
+library(RColorBrewer)
+library(kableExtra)
+```
+# Introduction
+  The emergence of the internet has altered the way we live, work, and communicate with each other. It has become an integral part of our daily lives, offering numerous benefits such as instant access to information, online shopping, and communication with people from all over the world. However, along with these benefits, the internet also poses various risks to its users.
+  
+  The dangers of using the internet increase as it develops and expands. Some of the main dangers that people encounter include cybercrime, online scams, identity theft, cyberbullying, and pestering. Regardless of the person's age, gender, or location, these dangers can have significant finncial and mental repercussions. 
+
+  Therefore, it is essential to recognise these dangers.
+Understanding and identifying risk is as important as keeping the world healthy. 
+ 
+
+  2) some detail about what the paper is about
+   This paper focuses on two main areas: the use of media and the risk goes along with it. 
+   Identifying the risk of using the internet towards people around the world
+  
+  
+  3) a clear gap that needs to be filled
+  
+  4) what was done
+  
+  5) what was found
+  
+  6) why it is important
+  
+  7) the structure of the paper
+  
+  In the following paper, I will delve into the outbreaks in Toronto healthcare institutions during the COVID-19 period to shed light on the differences and trends in reacting to outbreaks. According to opendatatoronto [@datatoronto], an outbreak is defined as "a localized increase (e.g. in an institution, or a specific ward or floor within an institution) in the rate of infection or illness, above that which is expected." I will first guide you through the data collection, methodology, and ethical concerns, which will be explained thoroughly in Section 2. Then I will discuss the data, visualize, and draw conclusions from the acquired data set.
+
+# Data
+
+# Model
+
+# Results
+
+# Discussion
+This gives valuable insights for pre-covid.
+
+
+# Appendix
+
+# References
