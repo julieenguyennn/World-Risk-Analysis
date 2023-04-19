@@ -115,7 +115,137 @@ complete an exploratory analysis and modelling.
 
 ## Variables
 
-## Ethical Concerns
+09 variables were selected to conduct analysis for the paper including
+06 variables for respondents' general information (gender, education
+attainment, global region, urbanicity, and the number of children in
+household) and 03 variables relating to the anxiety towards the risk of
+being online (cyber bullying, false information and fraudulent
+activities). I first viewed the presence of anxiety towards different
+gender, education, and global region to investigate the global trend of
+online risk and anxiety in the year 2019. Along with these variables,
+the remainings are used later on to explore whether there is a causal
+relationship between the respondent's identity and their being worried
+about risks posed by the internet.
+
+The anxiety towards different types of cybercrime were measure by asking
+the respondents "When using the Internet or social media, do you worry
+about any of the following things happening to you?". The answered is
+scaled as "Yes", "No". Gender of the respondents was recorded as 1 for
+"Male", and 2 for "Female". For the variable regarding the number of
+children in household, it is categorized into from 0 to 5 as the number
+of children accordingly, except for 5 was coded as "5 and above".
+Urbanicity refers to the place that the respondents were living in at
+the time of the survey. It is recorded as 1 for "A rural area or on a
+farm/Small town or village", and 2 for "A large city/Suburb of a large
+city". Lastly, the education attainment of the respondent is divided
+into 3 levels "Up to 8 years of basic education", "9-15 years of
+education", and "Completed four years of education beyond high school
+and/or received a 4-year college degree". Other types of responses that
+fell into "Do not Know" and "Refused" in all questions are omitted from
+analysis.
+
+## Plot
+
+```{r, include = FALSE}
+# Global internet use by region
+global_internet <- internet_risk %>% select(global_region, internet_use)
+
+global_internet <- global_internet %>% group_by(global_region) %>% 
+  count(internet_use)
+
+global_internet <- global_internet %>% ggplot(aes(x = global_region, y = n), fill = global_region) +
+  geom_bar(stat = "identity") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1), 
+        legend.position = 'none',
+        text = element_text(size = 8)) +
+  labs(x = "Global Region",
+       y = "Internet Use",
+       title = "Total internet use globally by region")
+
+# Risk of cyberbullying by region
+risk_by_region <- internet_risk %>% select(global_region,online_bullying,false_info,fraud)
+
+bully_region <- risk_by_region %>%
+  ggplot(aes(x = global_region, fill = online_bullying)) +
+  geom_bar(position = "fill") +
+  scale_fill_discrete(name = "Presence of Anxiety") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1), 
+        text = element_text(size = 8)) +
+  labs(x = "Global Region",
+       y = "Percentage of anxiety towards online bullying",
+       title = "Anxiety towards online bullying by region")
+
+# Risk of false information by region
+false_info_region <- risk_by_region %>%
+  ggplot(aes(x = global_region, fill = false_info)) +
+  geom_bar(position = "fill") +
+  scale_fill_discrete(name = "Presence of Anxiety") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1), 
+        text = element_text(size = 8)) +
+  labs(x = "Global Region",
+       y = "Percentage of anxiety towards false information",
+       title = "Anxiety towards false information by region")
+
+# Risk of frauds by region
+fraud_region <- risk_by_region %>%
+  ggplot(aes(x = global_region, fill = fraud)) +
+  geom_bar(position = "fill") +
+  scale_fill_discrete(name = "Presence of Anxiety") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1), 
+        text = element_text(size = 8)) +
+  labs(x = "Global Region",
+       y = "Percentage of anxiety towards online frauds",
+       title = "Anxiety towards online frauds by region")
+
+# Global internet use by gender
+gender_internet <- internet_risk %>% select(gender, internet_use)
+
+gender_internet <- gender_internet %>% group_by(gender) %>% 
+  count(internet_use)
+
+gender_internet <- gender_internet %>% ggplot(aes(x = gender, y = n), fill = gender) +
+  geom_bar(stat = "identity") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1), 
+        legend.position = 'none',
+        text = element_text(size = 8)) +
+  labs(x = "Gender",
+       y = "Internet Use",
+       title = "Total internet use globally by gender")
+
+# Risk of cyberbullying by gender
+risk_by_gender <- internet_risk %>% select(gender,online_bullying,false_info,fraud)
+
+bully_gender <- risk_by_gender %>%
+  ggplot(aes(x = gender, fill = online_bullying)) +
+  geom_bar(position = "fill") +
+  scale_fill_discrete(name = "Presence of Anxiety") +
+  labs(x = "Gender",
+       y = "Percentage of anxiety towards online bullying",
+       title = "Anxiety towards online bullying by region")
+
+# Risk of false information by region
+false_info_gender <- risk_by_gender %>%
+  ggplot(aes(x = gender, fill = false_info)) +
+  geom_bar(position = "fill") +
+  scale_fill_discrete(name = "Presence of Anxiety") +
+  labs(x = "Gender",
+       y = "Percentage of anxiety towards false information",
+       title = "Anxiety towards false information by region")
+
+# Risk of frauds by region
+fraud_gender <- risk_by_gender %>%
+  ggplot(aes(x = gender, fill = fraud)) +
+  geom_bar(position = "fill") +
+  scale_fill_discrete(name = "Presence of Anxiety") +
+  labs(x = "Gender",
+       y = "Percentage of anxiety towards online frauds",
+       title = "Anxiety towards online frauds by region")
+```
+
+```{r}
+
+
+```
 
 # Model
 
