@@ -30,8 +30,18 @@ library(knitr)
 library(RColorBrewer)
 library(kableExtra)
 library(ggplot2)
+library(cowplot)
 
 internet_risk <- read.csv(here::here("inputs/cleaned_data.csv"))
+
+# Format data
+internet_risk$gender <- as.factor(internet_risk$gender)
+internet_risk$online_bullying <- as.factor(internet_risk$online_bullying)
+cleaned_data$education <- as.factor(cleaned_data$education)
+cleaned_data$urbanicity <- as.factor(cleaned_data$urbanicity)
+cleaned_data$children_in_household <- as.factor(cleaned_data$children_in_household)
+internet_risk$false_info <- as.factor(internet_risk$false_info)
+internet_risk$fraud <- as.factor(internet_risk$fraud)
 ```
 
 # Introduction
@@ -58,22 +68,27 @@ Therefore, it is essential to recognize these dangers. Understanding and
 identifying risk is as important as keeping the world healthy. This
 paper focuses on identifying the perceptions of risk of using the
 internet among people around the world. The paper also analyzes the
-correlation between education, income, and living locations, and how these
-factors affect the perception of risk towards the internet. In exploring
-the patterns of risk perception, the paper hopes to provide insights
-into people in different demographics experience and perceive potential
-risks posed by digital technology, through which will improve digital
-well-being, raise awareness, and enhance the ways to protect internet
-users in the world.
+correlation between education, income, and living locations, and how
+these factors affect the perception of risk towards the internet. In
+exploring the patterns of risk perception, the paper hopes to provide
+insights into people in different demographics experience and perceive
+potential risks posed by digital technology, through which will improve
+digital well-being, raise awareness, and enhance the ways to protect
+internet users in the world.
 
 This paper will firstly explore the patterns of risk posed by technology
 in the world and in different global regions from the data of @riskpoll
 in 2019 using @rpackage. Various groups (of gender, education, and
 income) are observed to see how they affect the respondent's perception
-of risk caused by the internet. Other packages such as tidyverse @tidyverse, readr @readr, haven @haven, janitor @janitor, ggplot2 @ggplot, tidymodels @tidymodels etc. are also used to aggregate, visualize, and model the data. 
+of risk caused by the internet. Other packages such as tidyverse
+[@tidyverse], readr [@readr], haven [@haven], janitor [@janitor],
+ggplot2 [@ggplot], tidymodels [@tidymodels] etc. are also used to
+aggregate, visualize, and model the data.
 
-The main findings show that females tend to experience more anxiety towards the prospect of cybercrime
-than males. People living in low-income countries tend to witness the same pattern. People who have less kids tend to be less worried about the potential of risk.
+The main findings show that females tend to experience more anxiety
+towards the prospect of cybercrime than males. People living in
+low-income countries tend to witness the same pattern. People who have
+less kids tend to be less worried about the potential of risk.
 
 In the following paper, I will delve into the data from @riskpoll, and
 how it is obtained and arranged for proper analysis. This section will
@@ -85,51 +100,56 @@ data is shown as to provide a clear understanding of the results given.
 Lastly, the Discussion section will include what has been done, what was
 learnt as well as identify some weaknesses and propose the next steps
 for the paper.
-.
 
 # Data
+
 ## Dataset
-Describe dataset
-Others dataset could be used?
 
-```{r}
-
-```
-
+To attempt an analysis on ...., I manipulated the @riskpoll data from
+the year 2019. These data are collected by the Llyod's... The dataset
+was gatherd in... and last updated on... The raw data includes
+observations. Using R [@rpackage], tidyverse [@tidyverse], readr
+[@readr], haven [@haven], janitor [@janitor], ggplot2 [@ggplot],
+tidymodels [@tidymodels], I cleaned and extracted the necessary data to
+complete an exploratory analysis and modelling.
 
 ## Variables
 
 ## Ethical Concerns
 
-
-
-
 # Model
-Multiple logistic regression is used for analyzing the correlation between gender, the number of children, living location and the anxiety of the prospect of being a victim of cybercrime. 
 
-
+Multiple logistic regression is used for analyzing the correlation
+between gender, the number of children, living location and the anxiety
+of the prospect of being a victim of cybercrime.
 
 ```{r}
-# Select data of gender and anxiety of online bullying
-gender_risk <- internet_risk %>%
-  filter(l27a == "1" | l27a == "2") %>% 
-  select(gender, l27a) %>% 
-  rename("anxiety" = l27a)
+xtabs(~ online_bullying + gender, data = internet_risk)
+xtabs(~ online_bullying + children_in_household, data = internet_risk)
+xtabs(~ false_info + gender, data = internet_risk)
+xtabs(~ false_info + education, data = internet_risk)
+xtabs(~ fraud + education, data = internet_risk)
+```
 
-gender_risk <- gender_risk %>%
-  mutate(gender = case_when(gender == "1" ~ "Male", gender == "2" ~ "Female"),
-         anxiety = case_when(anxiety == "2" ~ "0", anxiety == "1" ~ "1"))
+```{r}
+data_bullying <- internet_risk %>% select(online_bullying,gender,education,urbanicity,children_in_household)
 
-gender_risk$anxiety <- as.numeric(gender_risk$anxiety)
+log_gender_bullying <- glm(online_bullying ~ gender, data=data_bullying, family="binomial")
+summary(log_online_bullying)
 
-# Apply logistic model
-gender_bully_model <-
-  glm(
-    anxiety ~ gender,
-    data = gender_risk,
-    family = "binomial"
-  )
-summary(gender_bully_model)
+predicted_data <- data.frame(probability_of_online_bullying = log_gender_bullying$fitted.values, gender=data_bullying$gender)
+
+ggplot(data = predicted_data, aes(x = gender, y = probability_of_online_bullying)) +
+  geom_point(aes(color = gender), size = 5) +
+  xlab("Gender") +
+  ylab("Predicted probability of getting online bullying")
+
+xtabs(~ probability_of_online_bullying + gender, data = predicted_data)
+```
+
+```{r}
+log_children <- glm(online_bullying ~ children_in_household, data=internet_risk, family="binomial")
+summary(log_children)
 ```
 
 ```{r}
@@ -167,16 +187,12 @@ summary(children_bully_model)
 ```{r}
 
 ```
+
 # Results
 
 ```{r}
 
 ```
-
-
-
-
-
 
 # Discussion
 
