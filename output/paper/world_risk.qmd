@@ -1,5 +1,5 @@
 ---
-title: "The world's anxiety of cybercrime in 2019"
+title: "The world's anxiety of cybercrime in 2019: an exploratory data analysis from the World Risk Poll"
 author: "Julie Nguyen"
 date: "`r Sys.time()`"
 date-format: "D MMMM YYYY"
@@ -52,18 +52,17 @@ that the Internet of Things (IoT) fell into the group of technology that had lot
 
 Therefore, it is essential to recognize these dangers. Understanding and identifying risk is as important as keeping the world healthy. This paper focuses on identifying the perceptions of risk of using the internet among people around the world. The paper also analyzes the correlation between education, income, and living locations, and how these factors affect the perception of risk towards the internet. In exploring the patterns of risk perception, the paper hopes to provide insights into people in different demographics experience and perceive potential risks posed by digital technology, through which will improve digital well-being, raise awareness, and enhance the ways to protect internet users in the world.
 
-This paper will firstly explore the patterns of risk posed by technology in the world and in different global regions from the data of @riskpoll in 2019 using @rpackage. Various groups (of gender, education, and income) are observed to see how they affect the respondent's perception of risk caused by the internet. Other packages such as tidyverse [@tidyverse], readr [@readr], haven [@haven], janitor [@janitor], ggplot2 [@ggplot], tidymodels [@tidymodels] etc. are also used to aggregate, visualize, and model the data.
+This paper will firstly explore the patterns of risk posed by technology in the world and in different global regions from the data of @riskpoll in 2019 using @rpackage. Various groups (of gender, education, and income) are observed to see how they affect the respondent's perception of risk caused by the internet. Other packages such as tidyverse [@tidyverse], readr [@readr], haven [@haven], janitor [@janitor], ggplot2 [@ggplot], ggpubr [@ggpubr], testthat [@testthat] etc. are also used to aggregate, visualize, and model the data.
 
 The main findings show that females tend to experience more anxiety towards the prospect of cybercrime than males. People living in low-income countries tend to witness the same pattern. People who have less kids tend to be less worried about the potential of risk.
 
-In the following paper, I will delve into the data from @riskpoll, and how it is obtained and arranged for proper analysis. This section will also guide us through the understanding of the initial survey and ethical concerns regarding the data collection. Moving on to the Model section, we will discuss our model and its implications for how we interpret our results going forward. In the Results section, graphical data is shown as to provide a clear understanding of the results given. Lastly, the Discussion section will include what has been done, what was learnt as well as identify some weaknesses and propose the next steps
-for the paper.
+In the following paper, I will delve into the data from @riskpoll, and how it is obtained and arranged for proper analysis. This section will also guide us through the understanding of the initial survey and ethical concerns regarding the data collection. Moving on to the Model section, we will discuss our model and its implications for how we interpret our results going forward. In the Results section, graphical data is shown as to provide a clear understanding of the results given. Lastly, the Discussion section will include what has been done, what was learnt as well as identify some weaknesses and propose the next steps for the paper.
 
 # Data
 
 ## Dataset
 
-To attempt an analysis on the correlation between the respondents' gender, education attainment, the number of children in household and the anxiety towards the prospect of being a victim of cybercrime, I manipulated the @riskpoll data from the year 2019. These data are collected by the Llyod's Register Foundation. The dataset was gatherd in... and last updated on... The raw data includes 150,000 observations. Using R [@rpackage], tidyverse [@tidyverse], readr [@readr], haven [@haven], janitor [@janitor], ggplot2 [@ggplot], tidymodels [@tidymodels], I cleaned and extracted the necessary data to complete an exploratory analysis and modelling.
+To attempt an analysis on the correlation between the respondents' gender, education attainment, the number of children in household and the anxiety towards the prospect of being a victim of cybercrime, I manipulated the @riskpoll data from the year 2019. These data are collected by the Llyod's Register Foundation through the World Risk Poll survey powered by Gallup. The dataset was administered and gatherd in the UK Data Service website and last updated on 14 January 2021. The raw data includes 154,195 observations. Using R [@rpackage], tidyverse [@tidyverse], readr [@readr], haven [@haven], janitor [@janitor], ggplot2 [@ggplot], ggpubr [@ggpubr], gridExtra[@gridExtra], I cleaned and extracted the necessary data to complete an exploratory analysis and modelling.
 
 ## Variables
 
@@ -179,12 +178,12 @@ sumgraphs <-
 
 @fig-internetuse depicts the demographics of total internet use globally by region and gender. A total number of 86,248 observations is recorded as having used the internet in the last 30 days from the time of survey. Among 86,248 observations, it is recorded the the majority comes from Europe, with 15.47% in Northern/Western Europe, 11.23% in Southern Europe, and 8.21% in Eastern Europe. On the other hand, the region of Australia and New Zealand only witnesses a total of 1666 respondents, which takes up 1.94% of the total observations. Regarding the gender, the survey witnesses a quite equal proportion of female and male respondents, 50.75% and 49.25% respectively.
 
-```{r fig.height=3, fig.cap="Anxiety towards cyber risks by region", fig.pos = "H", echo=FALSE, warning=FALSE, message = FALSE}
+```{r fig.height=4, fig.cap="Anxiety towards cyber risks by region", fig.pos = "H", echo=FALSE, warning=FALSE, message = FALSE}
 #| label: fig-regionrisk
 ggarrange(bully_region, false_info_region, fraud_region, ncol=3, common.legend = TRUE, legend="bottom")
 ```
 
-@fig-regionrisk illustrates the proportion of respondents feeling anxious towards the three types of cybercrime. In general, people were more worried about the prospect of being a victim of false information. A majority of respondents in Africa reported to have been worried about being online bullied, with a percentage of xxx% in Central/Western Africa, xxx% in Eastern Africa, xxx% in North Africa, and xxx% in Southern Africa. People from Australia and New Zealand were deeply concerned with confronting false information and fraudulent activities online. On the other hand, the region of Central Asia and South Asia recorded similar attitudes of being "not worried" than "worried" for any of the three types of cybercrime.
+@fig-regionrisk illustrates the proportion of respondents feeling anxious towards the three types of cybercrime. In general, people were more worried about the prospect of being a victim of false information. A majority of respondents in Africa reported to have been worried about being online bullied, with a percentage of 59.32% in Central/Western Africa, 56.48% in Eastern Africa, 53.94% in North Africa, and 54.98% in Southern Africa. People from Australia and New Zealand were deeply concerned with confronting false information and fraudulent activities online. On the other hand, the region of Central Asia and South Asia recorded similar attitudes of being "not worried" than "worried" for any of the three types of cybercrime.
 
 ```{r fig.height=3, fig.cap="Anxiety towards cyber risks by gender", fig.pos = "H", echo=FALSE, warning=FALSE, message = FALSE}
 #| label: fig-genderrisk
@@ -195,7 +194,7 @@ ggarrange(bully_gender, false_info_gender, fraud_gender, ncol=3, common.legend =
 
 # Model
 
-In order to investigate and validate the relationship between a person's identity and their anxiety towards online crime, I utilized multiple binary logistic regression using R [@rpackage] and tidymodels [@tidymodels]. This model is appropriate for an explanatory analysis of binary outcome variable, in this case the presence and absence of anxiety. Using the logistic regression also allows me to identify risk factors for anxiety towards cybercrime that may be more prevalent in certain populations, as well as the estimation of the probability of getting worried towards those crimes. I will be using four standard logistic regression models, each with separate dependent variable and a predictor as follows:
+In order to investigate and validate the relationship between a person's identity and their anxiety towards online crime, I utilized multiple binary logistic regression using R [@rpackage], sjPlot [@sjPlot] modelsummary [@modelsummary]. This model is appropriate for an explanatory analysis of binary outcome variable, in this case the presence and absence of anxiety. Using the logistic regression also allows me to identify risk factors for anxiety towards cybercrime that may be more prevalent in certain populations, as well as the estimation of the probability of getting worried towards those crimes. I will be using four standard logistic regression models, each with separate dependent variable and a predictor as follows:
 
 $$log(\frac{\pi_i}{\pi_i-1}) = \beta_0 + \beta_1*x_1$$
 
@@ -232,7 +231,7 @@ log_children_bullying <- glm(online_bullying ~ children_in_household, data=data_
 #| tbl-cap: "Summary model of anxiety towards online bullying"
 tab_model(log_gender_bullying, log_children_bullying, show.ci = F, show.stat = T, show.se = T, show.est = T, p.style = "stars", dv.labels = c("Gender","Children in Household"))
 ```
-To predict the characteristics of people getting anxious over the prospect of online bullying, I plotted a model for both gender variable and number of children variable. @fig-onlinebully displays the predicted probability of anxiety among genders and the number of children that one is raising. The graph on the left shows that . On the other hand, the graph on the right side indicates the more children there is in a household, the more likely that the parent/guardian is worried about cyberbullying. 
+To predict the characteristics of people getting anxious over the prospect of online bullying, I plotted a model for both gender variable and number of children variable. @fig-onlinebully displays the predicted probability of anxiety among genders and the number of children that one is raising. The graph on the left shows that female are likely to feel more worried than male. On the other hand, the graph on the right side indicates the more children there is in a household, the more likely that the parent/guardian is worried about cyberbullying. 
 
 ```{r}
 # Predicted probability of anxiety towards cyberbullying
@@ -261,7 +260,7 @@ plot_children_bully <- ggplot(data = predicted_children_bully, aes(x=rank, y=pro
   ylab("Predicted probability of anxiety")
 ```
 
-```{r fig.cap="Predicted probability of getting anxious over online bullying", fig.pos="H", echo=FALSE, warning=FALSE, message = FALSE}
+```{r fig.height = 3.4, fig.cap="Predicted probability of getting anxious over online bullying", fig.pos="H", echo=FALSE, warning=FALSE, message = FALSE}
 #| label: fig-onlinebully
 sumgraphs <-
   grid.arrange(plot_gender_bully, plot_children_bully,
@@ -294,7 +293,7 @@ predicted_false_info <- predicted_false_info[order(predicted_false_info$probabil
 predicted_false_info$rank <- 1:nrow(predicted_false_info)
 ```
 
-```{r}
+```{r fig.pos="H"}
 #| label: fig-falseinfo
 #| fig-cap: "Predicted probability of anxiety towards false information among education groups"
 
@@ -354,9 +353,7 @@ The findings has illustrated the current situation of cyber risks and predicted 
 ## Weaknesses & Ethical Concerns
 The weaknesses and ethical concerns of this paper and analysis fall into both the original dataset and the treatment of data and modelling.
 
-Firstly, weakness emerged from the original dataset can be accounted for how survey questions were designed, which could have introduced to the appearance of non-sampling errors. The type of non-sampling errors in the survey mostly falls into non-response error, where respondents left the answer blank or provide incomplete answers. In addition, the binary options for measuring anxiety in the survey could introduce bias and inaccuracies in the results. This is because people may have different levels of interpretations of what constitutes "worried" or "not worried".
-
-The reliance on self-selection by respondents may have introduced biases into the sample, as those who choose to participate may have different characteristics or opinions than those who do not. Additionally, the reliance on web-based responses may have excluded individuals who do not have access to or are not comfortable using the internet, further potentially reducing the representativeness of the sample.
+Firstly, weakness emerged from the original dataset can be accounted for how survey questions were designed, which could have introduced to the appearance of non-sampling errors. The type of non-sampling errors in the survey mostly falls into non-response error, where respondents left the answer blank or provide incomplete answers. In addition, the binary options for measuring anxiety in the survey could introduce bias and inaccuracies in the results. This is because people may have different levels of interpretations of what constitutes "worried" or "not worried". The reliance on self-selection by respondents may have introduced biases into the sample, as those who choose to participate may have different characteristics or opinions than those who do not. Additionally, the reliance on face-to-face and telephone interview may have excluded individuals who do not have access to or are not comfortable using the phone or on-site meeting, further potentially reducing the representativeness of the sample.
 
 Regarding the data treatment and modelling, there are also a few weaknesses that can be found. Firstly is the omission of NA values. Any responses that are recorded as NA or "Don't Know" were omitted during the data cleaning process, which lower the total number of respondents from 154,195 to 86,248. This significantly affects the overall analysis of the trend as well as the modelling for prediction.
 
