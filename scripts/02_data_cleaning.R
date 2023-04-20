@@ -1,4 +1,10 @@
-# Preamble: 
+#### Preamble ####
+# Purpose: Clean the data downloaded from World Risk Poll
+# Author: Julie Nguyen
+# Date: 20 April 2023
+# Contact: hongan.nguyen@utoronto.ca
+# Pre-requisites: 
+# - Need to have downloaded the data on the World Risk Poll and saved it to inputs/data 
 
 
 library(tidyverse)
