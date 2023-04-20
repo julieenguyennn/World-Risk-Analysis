@@ -284,7 +284,7 @@ ggarrange(bully_gender, false_info_gender, fraud_gender, ncol=3, common.legend =
 @fig-genderrisk shows the percentage of people feeling worried about
 three types of cybercrime by gender. There is an overall trend, although
 not too distinct, that female respondents feel more anxious than male
-towards the online risks.
+towards the online risks. It is also obvious that both male and female respondents felt more anxious towards the prospect of facing false information when using the internet and social media.
 
 # Model
 
