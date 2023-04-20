@@ -1,31 +1,15 @@
-
+#### Preamble ####
+# Purpose: Simulate the dataset to be solved
+# Author: Julie Nguyen
+# Date: 20 April 2023
+# Contact: hongan.nguyen@utoronto.ca
+# Pre-requisites: 
+# - Have questions to be solved for the data
 
 set.seed(102)
 
 # Define variables and their categories
-gender <- c("Male", "Female")
-education_level <- c("High School", "College", "Graduate")
-region <- c("North", "South", "East", "West")
-worried <- c("Worried", "Not Worried")
-
-# Define the size of the dataset
-n <- 1000
-
-# Create an empty matrix to store the data
-simulated_data <- matrix(ncol = 4, nrow = n)
-
-# Generate data for each row of the dataset
-for (i in 1:n) {
-  simulated_data[i,] <- c(
-    sample(gender, 1),
-    sample(education_level, 1),
-    sample(region, 1),
-    sample(worried, 1)
-  )
-}
-
-# Convert the matrix to a data frame
-simulated_data <- as.data.frame(simulated_data)
-
-# Rename the columns
-colnames(simulated_data) <- c("Gender", "Education Level", "Region", "Worried about Cybercrime")
+simulated_data <- tibble("Gender" = sample(c("Male","Female"), 100, replace = TRUE),
+       "Education" = sample(c("High School", "Post_secondary", "Graduate"), 100, replace = TRUE),
+       "Region" = sample(c("Asia", "Africa", "Europe","North America","South America"), 100, replace = TRUE),
+       "Presence of Anxiety" = sample(c("Worried","Not Worried"), 100, replace = TRUE))
